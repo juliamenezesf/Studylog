@@ -1,73 +1,55 @@
-# React + TypeScript + Vite
+StudyLog
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Mini app para registrar sessões de estudo. React + TS + Vite + React Router + Tailwind (básico).
 
-Currently, two official plugins are available:
+🔗 Links
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Repositório GitHub: cole aqui a URL do repositório
+(Com histórico de commits seguindo GitFlow: main, develop, feature/*)
 
-## React Compiler
+Deploy (Vercel):
+https://studylog-git-main-julias-projects-ab722ade.vercel.app?_vercel_share=fZ2zN8qc19WIU4Tm0TmEmxc8XEcxRk5o
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+▶️ Como rodar (local)
+# 1) instalar dependências
+npm install
 
-## Expanding the ESLint configuration
+# 2) ambiente de desenvolvimento
+npm run dev
+# abre em http://localhost:5173
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+🧭 Páginas
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+/ Home – lista sessões e mostra estatísticas (total, minutos, média)
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+/add Nova Sessão – formulário controlado para criar sessão
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+/session/:id Detalhes – página dinâmica para uma sessão específica
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+* 404 – página de rota não encontrada
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+🧠 Onde estão useMemo / useCallback
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+useMemo: src/pages/Home.tsx
+Calcula as estatísticas (total/minutos/média) a partir da lista de sessões.
+
+useCallback: src/App.tsx
+Funções addSession e removeSession (estado em memória) memorizadas com useCallback.
+
+👥 Integrantes e divisão
+Integrante	GitHub	Responsabilidades
+Júlia Menezes	https://github.com/juliamenezesf
+	Setup do projeto, Router + Layout, estado em memória, Outlet com contexto, util de datas, páginas AddSession e 404
+Pedro Costa	https://github.com/pedrocostah
+	Páginas Home (com useMemo), SessionDetails (rota dinâmica), SessionCard e ajustes finais
+🛠️ Notas técnicas (resumo)
+
+SPA em React + TypeScript
+
+Estado somente em memória (useState) — sem backend/localStorage
+
+Rotas estáticas e dinâmicas com Layout + <Outlet> e lazy loading (React.lazy + Suspense)
+
+ErrorBoundary envolvendo as rotas
+
+Datas salvas em ISO yyyy-mm-dd e exibidas em pt-BR com formatDateISOToBR (src/utils/date.ts)
