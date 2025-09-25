@@ -1,35 +1,53 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState, useCallback, lazy, Suspense } from "react";
+import { Routes, Route, Outlet } from "react-router-dom";
+import Layout from "./components/Layout";
+import ErrorBoundary from "./components/ErrorBoundary";
+import { StudySession } from "./types";
 
-function App() {
-  const [count, setCount] = useState(0)
+const Home = lazy(() => import("./pages/Home."));
+const AddSession = lazy(() => import("./pages/AddSessions"));
+const SessionDetails = lazy(() => import("./pages/SessionDetails"));
+const NotFound = lazy(() => import("./pages/NotFound"));
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+export type AppOutletContext = {
+  sessions: StudySession[];
+  addSession: (s: Omit<StudySession, "id">) => void;
+  removeSession: (id: string) => void;
+};
+
+function ContextOutlet(props: AppOutletContext) {
+  // se o VS Code insistir em sublinhar, troque por:  <Outlet context={props as any} />
+  return <Outlet context={props} />;
 }
 
-export default App
+export default function App() {
+  const [sessions, setSessions] = useState<StudySession[]>([]);
+
+  const addSession = useCallback((s: Omit<StudySession, "id">) => {
+    const id = Date.now().toString();
+    setSessions(prev => [{ id, ...s }, ...prev]);
+  }, []);
+
+  const removeSession = useCallback((id: string) => {
+    setSessions(prev => prev.filter(s => s.id !== id));
+  }, []);
+
+  const ctx: AppOutletContext = { sessions, addSession, removeSession };
+
+  return (
+    <ErrorBoundary>
+      <Suspense fallback={<p className="container py-4">Carregando...</p>}>
+        <Routes>
+          <Route element={<Layout />}>
+            <Route element={<ContextOutlet {...ctx} />}>
+              <Route index element={<Home />} />
+              <Route path="add" element={<AddSession />} />
+              <Route path="session/:id" element={<SessionDetails />} />
+              <Route path="*" element={<NotFound />} />
+            </Route>
+          </Route>
+        </Routes>
+      </Suspense>
+    </ErrorBoundary>
+  );
+}
