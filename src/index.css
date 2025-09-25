@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body { @apply bg-gray-50 text-gray-900; }
+a { @apply text-blue-600 hover:underline; }
+.container { @apply mx-auto max-w-4xl px-4; }
+.btn { @apply inline-flex items-center justify-center px-3 py-2 text-sm border rounded-md; }
+.btn-primary { @apply border-blue-600 text-blue-700 hover:bg-blue-50; }
+.btn-muted { @apply border-gray-300 text-gray-700 hover:bg-gray-50; }
+.panel { @apply border bg-white rounded-md p-4; }
+.input { @apply w-full border rounded-md px-3 py-2; }
