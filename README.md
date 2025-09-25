@@ -8,7 +8,7 @@ Feita com **React + TypeScript + Vite + React Router + TailwindCSS (básico)**.
 ## 🔗 Links
 
 - **Repositório:** [github.com/juliamenezesf/Studylog](https://github.com/juliamenezesf/Studylog)  
-- **Deploy (Vercel):** [Acessar aqui](https://studylog-git-main-julias-projects-ab722ade.vercel.app?_vercel_share=fZ2zN8qc19WIU4Tm0TmEmxc8XEcxRk5o)
+- **Deploy (Vercel):** [Acessar aqui](https://studylog-ochre.vercel.app/)
 
 ---
 
