@@ -13,7 +13,9 @@ export default function Layout() {
           <NavLink to="/add" className={link}>Nova Sessão</NavLink>
         </nav>
       </header>
-      <main className="container py-4"><Outlet /></main>
+      <main className="container py-4">
+        <Outlet />
+      </main>
     </div>
   );
 }
