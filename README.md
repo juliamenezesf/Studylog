@@ -50,16 +50,6 @@ npm run dev
 
 ---
 
-## 🧰 Stack / Técnicas
-
-- **React + TypeScript** (SPA)  
-- **React Router** com Layout + `<Outlet>` e lazy loading (`React.lazy` + `Suspense`)  
-- **ErrorBoundary** envolvendo as rotas  
-- **Estado somente em memória** (`useState`) — sem backend/localStorage  
-- **Datas em ISO** (`yyyy-mm-dd`), exibidas em **pt-BR** via `formatDateISOToBR` (`src/utils/date.ts`)  
-
----
-
 ## 👥 Integrantes e responsabilidades
 
 | Integrante     | GitHub                                        | Responsabilidades                                                                 |
