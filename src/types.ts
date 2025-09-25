@@ -1,7 +1,7 @@
-export interface StudySession {
+export type StudySession = {
   id: string;
   subject: string;
   minutes: number;
-  date: string;
+  date: string; // yyyy-mm-dd (sem fuso)
   notes?: string;
-}
+};
